@@ -16,21 +16,28 @@ export default function DailyQuote() {
   const fetchQuote = async () => {
     try {
       setLoading(true);
+      setError(null);
       const response = await fetch("/api/quote");
 
       if (!response.ok) {
-        throw new Error("Failed to fetch quote");
+        throw new Error(`API error: ${response.status}`);
       }
 
       const data = await response.json();
+
+      if (data.error) {
+        throw new Error(data.error);
+      }
+
       setQuote({
         quote: data.quote,
         author: data.author,
       });
-      setError(null);
     } catch (err) {
-      setError("Unable to fetch quote");
-      console.error(err);
+      const errorMsg =
+        err instanceof Error ? err.message : "Unable to fetch quote";
+      setError(errorMsg);
+      console.error("Failed to fetch quote:", err);
     } finally {
       setLoading(false);
     }
