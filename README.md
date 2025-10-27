@@ -36,7 +36,7 @@ wellness-tracker-dashboard/
 |
 |── lib/
 |   ├── dummyData.ts (Mock data development)
-|   |── utils.ts
+|   |── utils.ts (Helper functions)
 |   └── translateQuote.ts (Integrasi api-translator)
 └── package.json (Dependencies & scripts)
 
